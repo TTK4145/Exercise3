@@ -7,10 +7,9 @@ Testing the software you're writing is an essential part of being a developer. W
 The recommended workflow for this project is the same one you will be using in this exercise. You first develop your code while testing in simulation, when you're certain your code work as intended you run it on the hardware.
 
 ## Parts
-- [Part 1: Testing the simulator](./Part1/README.md)
-- [Part 2: Using the simulator to test your program](./Part2/README.md)
-- [Part 3: Running your code on actual elevator HW](./Part3/README.md)
-- [Part 4: Completing the abstraction](./Part4/README.md)
+- [Part 1: Initial testing](./Part1/README.md)
+- [Part 2: Writing elevator code](./Part2/README.md)
+- [Part 3: Completing the abstraction](./Part3/README.md)
 
 
 ## Approval
