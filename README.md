@@ -9,7 +9,6 @@ The recommended workflow for this project is the same one you will be using in t
 ## Parts
 - [Part 1: Initial testing](./Part1/README.md)
 - [Part 2: Writing elevator code](./Part2/README.md)
-- [Part 3: Completing the abstraction](./Part3/README.md)
 
 
 ## Approval
