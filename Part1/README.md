@@ -1,7 +1,7 @@
 # Initial testing
 
 ## Running on the simulator.
-1. [Clone](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone), compile and run the [simulator](https://github.com/TTK4145/Simulator-v2).
+1. Download and run the [simulator](https://github.com/TTK4145/Simulator-v2) [executable](https://github.com/TTK4145/Simulator-v2/releases/download/v1.1/SimElevatorServer).
 2. Run the `test.sh` script from [the c client](https://github.com/TTK4145/driver-c) to verify that the simulator is working properly.
 3. The simulated elevator should now move between the top and bottom floor.
 
