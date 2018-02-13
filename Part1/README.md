@@ -10,4 +10,4 @@
 2. Run the `test.sh` script now and verify that you get the same behaviour on the hardware as you had on the simulated elevator.
 
 ## Tips & Tricks
- - If an `elevator_server` is already running the new server will not be able to bind to the socket. If you need to kill it, you can do so by calling `pkill ElevatorServer`.
+ - If an `ElevatorServer` is already running the new server will not be able to bind to the socket. If you need to kill it, you can do so by calling `pkill ElevatorServer`.
