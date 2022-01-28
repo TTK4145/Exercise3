@@ -1,5 +1,5 @@
-Exercise 5: Call for transport
-==============================
+Exercise 4 : Single Elevator
+============================
 
 This exercise consists of two parts
 
@@ -8,70 +8,43 @@ This exercise consists of two parts
 
 Which part you do first is up to you - you may find it useful to get some code in an editor in order to realize exactly what parts are missing and will need to be designed and created, or you might find it useful to think long and hard before writing something that might end up getting thrown out. The most likely scenario is a combination of both.
 
-Part 1: Module design hand-in
------------------------------
 
-*This part of the exercise should be handed in as a group.*
+Running a single elevator
+-------------------------
 
-Produce a reasonably-sized document outlining your proposal for what modules your program(s) consists of, and how they depend on each other. As last time - this should not be a final design, we do not require formalisms like UML, and you should not over-spend time and effort. The goal is *to make progress*, not *to create a complete design*.
+The elevator hardware on the lab is controlled via an Arduino, connected with USB as a serial device. On top of this raw IO layer there is an elevator layer, which exposes functions for reading buttons, setting the motor speed, and so on.
 
- - The implementation
-   - What is a module made of? Is a "module" a class, thread, file, function, ...?
-     - This will depend on your programming language of choice.
-   - These modules are part of the same software system. How will they interact?
-     - Methods, functions, messages, channels, network, shared variables, file systems, ...?
-     
- - The contents
-   - Briefly, and as "seen from the outside": What modules do you need?
-     - As in: what are the things that need to be done?
-       - Try giving them names. A concise and descriptive name can be a good indication of a high quality module.
-     - Consider: what is the criteria you have used for deciding when to split something into modules?
-   - In order for a module to perform its task, it depends on information. What are the inputs, outputs, and state of the modules?
-     - Think in terms of data structures, or at least "what the data is" (even if it has no structure yet).
-     - Given the language and implementation choice - are you playing to the strengths of your choice?
-       - That is: you are not trying to share variables with message passing, or send messages with shared variables.
-       
-Some hints:
+Since we have a limited number of elevators (and you can't take them with you), we also have a simulator. Since the simulator needs to show what it does and take inputs to emulate button presses, it must be run in a separate window, which means it needs to be a standalone application. 
 
- - If your module collection is just "elevator interface, networking, and a magic box that does the rest", you should create more modules.
- - Do not consider *how* a module does what it does (i.e. algorithms and logic), for now stick to *what*.
- - Try to draw the interactions between modules as a figure, in no more detail than circles for modules and arrows between them. 
- - Try tracing some scenarios like "button is pressed" to "elevator starts moving" in the figure, as this will often help you figure out what is missing.
-
-Part 2: Running a single elevator
----------------------------------
-
-The elevator hardware on the lab is controlled via a National Instruments PCI Digital I/O device, using the Comedi driver. An "elevator" abstraction has been created, that exposes a few functions in C that lets us use this I/O card. However, using this presents a few challenges for a project like this:
-
- - Calling C code from other programming languages is sometimes a bit of a hassle
- - The driver only works on Linux, which you might not use when working elsewhere than the lab
- - Very few of you have an elevator
- 
-In order to alleviate the lack of elevators, a simulator was created. In order to use the simulator, you need to see what it does and input "button presses" to it, which means it has to run in a separate terminal window. Then in order to a) make interfacing with the simulator and the real elevator as similar as possible, and b) eliminate the need to call C code, both the simulator and the hardware elevator expose a network-based interface using TCP. In this way, you can seamlessly swap between the simulator and hardware elevators.
+In order to make swapping between the simulator and the real elevator as seamless as possible, we have chosen to make interfacing the the real elevator also happen through a standalone application. This also means you do not have to interface with any C code, but instead just a single TCP connection on localhost.
 
 This means we have a simple client-server structure to the elevator:
 
- - Two possible servers:
+ - Two possible servers (both are already installed on the lab computers):
    - [The Elevator Server](https://github.com/TTK4145/elevator-server)
-   - [The simulator](https://github.com/TTK4145/Simulator-v2)
+   - [The simulator](https://github.com/TTK4145/Simulator-v2)  
  - [Language-specific clients](https://github.com/TTK4145?q=driver)
    - Choose the one you need for the language you are using on the project
    - (If none exist for your language, ask for help and we'll add it once it works)
 
 You may want to modify the client end of the driver, or possibly create your own from scratch. There is no particular requirement or recommendation involved here.
 
-*(The [low-level C driver](/driver) for the elevator hardware is included in this repository for completeness, but using it is not recommended.)*
+*If you for some reason want to interface directly with the elevator (i.e. bypassing the elevator server), you can find the necessary code to do this in the elevator-server repository. This is not recommended.*
     
 ### Up and down
 
 Download the driver (for the programming language you are doing the project in), and test it on both the hardware elevator and the simulator.
 
  - Using the hardware elevator
-   - Download and run the [elevator server executable](https://github.com/TTK4145/elevator-server/releases/latest). It's likely already installed on the lab computers, try just running `ElevatorServer` from the terminal
-   - If an `ElevatorServer` is already running, the new server will not be able to bind to the socket. If you need to kill it, you can do so by calling `pkill ElevatorServer`
+   - Run the elevator server, by typing `elevatorserver` in any terminal window.
+   - *If an `elevatorserver` is already running, the new server will not be able to bind to the socket. If you need to kill it, you can do so by calling `pkill elevatorserver`*
  - Using the simulator
-   - Download and run the [simulator executable](https://github.com/TTK4145/Simulator-v2/releases/latest)
-   - In order to run multiple simulators on the same computer, you will have to change the port on both the simulator (with `--port`) and in the driver (likely in a call to some init-function or in a config file)
+   - Run the simulator server, by typing `simelevatorserver` in any terminal window.
+   - Or if you are working from your own machine, download and run the [simulator executable](https://github.com/TTK4145/Simulator-v2/releases/latest)
+     - *If you are on OSX, you will have to compile it from source yourself. [See instructions here](https://github.com/TTK4145/Simulator-v2#compiling-from-source).*
+   - In order to run multiple simulators on the same computer (or a simulator and a real elevator), you will have to change the port on both the simulator (with `--port`) and in the driver (likely in a call to some init-function or in a config file)
+   
+*If you want to use the real elevator with your own machine, you will need a USB-B cable, and the [elevator server executable](https://github.com/TTK4145/elevator-server/releases/latest) (OSX is not supported, as this is not implemented yet).*
 
 
 ### Up and away
