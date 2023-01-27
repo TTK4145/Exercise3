@@ -75,7 +75,7 @@ You are encouraged to try to trace the analysis steps for the elev_algo code lin
 
 ### Doing it yourself
 
-You should now implement some way to control a single elevator, as a part of the elevator project. This is where you get started "for real", so set up your environment (build tools, repository, editor, etc.) the way you like it before you begin.
+You should now implement some way to control a single elevator, as a part of the elevator project. This is where you get started "for real", so set up your environment (build tools, repository, editor, etc.) the way you like it before you begin. Start using your project repository.
 
 Since you don't have any way to distribute requests yet, you should use the button presses directly. You will also eventually have to implement features for various fault tolerance scenarios, button light handling, and so on. Since so many things will have to change later, use this knowledge to influence your module design and to find the boundaries between them.
 
